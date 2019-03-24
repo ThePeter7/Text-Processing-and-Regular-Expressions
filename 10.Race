@@ -1,0 +1,57 @@
+package Text;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+public class Race {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<String> runners = Arrays.stream(scanner.nextLine().split(", ")).collect(Collectors.toList());
+        String input = scanner.nextLine();
+        LinkedHashMap<String, Integer> runNKm = new LinkedHashMap<>();
+
+        for (String asd : runners) {
+            runNKm.put(asd, 0);
+        }
+
+        while (!input.equals("end of race")) {
+            String[] currentRun = input.split("[^A-Za-z]+");
+            String acr = "";
+
+            for (int i = 0; i < currentRun.length; i++) {
+                acr += currentRun[i];
+            }
+
+            if (runners.contains(acr)) {
+                List<String> km = new ArrayList<>();
+                Matcher match = Pattern.compile("[\\d]").matcher(input);
+
+                while(match.find()){
+                    km.add(match.group());
+                }
+                int sum = 0;
+                for (int i = 0; i < km.size(); i++) {
+                    sum += Integer.parseInt(km.get(i));
+                }
+                runNKm.put(acr,runNKm.get(acr) + sum);
+            }
+
+
+            input = scanner.nextLine();
+        }
+        List<String> winners = new ArrayList<>();
+        runNKm.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> winners.add(x.getKey()));
+        
+
+                System.out.println("1st place: " + winners.get(0));
+                System.out.println("2nd place: " + winners.get(1));
+                System.out.println("3rd place: " + winners.get(2));
+
+    }
+}
