@@ -1,15 +1,17 @@
 package Text;
 
-import java.util.Scanner;
+        import java.util.Scanner;
 
 public class Extract {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String[] input = scanner.nextLine().split("[^A-Za-z0-9-]+");
-        int size = input.length;
+        String[] input = scanner.nextLine().split("\\\\");
+        String text = input[input.length - 1];
+        String firstPart = text.substring(0,text.lastIndexOf('.'));
+        String secondPart = text.substring(text.lastIndexOf('.') + 1);
 
-        System.out.printf("File name: %s%n", input[size - 2]);
-        System.out.printf("File extension: %s", input[size - 1]);
+        System.out.printf("File name: %s%n", firstPart);
+        System.out.printf("File extension: %s", secondPart);
     }
 }
