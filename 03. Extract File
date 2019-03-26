@@ -1,0 +1,15 @@
+package Text;
+
+import java.util.Scanner;
+
+public class Extract {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] input = scanner.nextLine().split("[^A-Za-z0-9-]+");
+        int size = input.length;
+
+        System.out.printf("File name: %s%n", input[size - 2]);
+        System.out.printf("File extension: %s", input[size - 1]);
+    }
+}
